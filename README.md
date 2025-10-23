@@ -1,6 +1,6 @@
 🛒 TechStore - eCommerce de Tecnología
 
-![TechStore Banner](https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=1200&h=300&fit=crop)
+![TechStore Banner]([https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=1200&h=300&fit=crop](https://www.naitika.fr/wp-content/uploads/2024/08/clavier-sans-fil-gamer-autonomie-et-precision-assurees-1723645143.jpg))
 
 Proyecto de eCommerce desarrollado con React + Vite, especializado en productos tecnológicos como laptops, periféricos y accesorios premium.
 
