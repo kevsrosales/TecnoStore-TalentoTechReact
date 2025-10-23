@@ -1,6 +1,6 @@
 import { Container, Row, Col, Spinner, Alert } from 'react-bootstrap';
-import ProductoCard from '../components/ProductoCard';
-import Banner from '../components/Banner';
+import ProductoCard from '../components/productoCard';
+import Banner from '../components/banner';
 
 export default function Inicio({ productos, loading, error, onAgregarAlCarrito }) {
     if (loading) {

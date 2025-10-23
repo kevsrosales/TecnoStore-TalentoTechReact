@@ -11,7 +11,12 @@ export default function Header({ cartCount }) {
     };
 
     return (
-        <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
+        <Navbar
+            variant="dark"
+            expand="lg"
+            className="mb-4 navbar-sticky"
+            style={{ backgroundColor: '#1a1d29' }}
+        >
             <Container>
                 <Navbar.Brand as={Link} to="/">🛒 TechStore</Navbar.Brand>
                 <Navbar.Toggle />

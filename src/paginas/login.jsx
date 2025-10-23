@@ -11,6 +11,7 @@ export default function Login() {
     const handleLogin = (e) => {
         e.preventDefault();
 
+        // Validación simple (puedes mejorarla)
         if (usuario === 'admin' && password === '1234') {
             localStorage.setItem('auth', 'true');
             navigate('/');
@@ -37,8 +38,8 @@ export default function Login() {
                                 placeholder="Ingresa tu usuario"
                                 required
                             />
-                            <Form.Text className="text-muted">
-                                Usuario: admin
+                            <Form.Text className="text-help">
+                                <strong style={{ color: '#8b5cf6' }}>Usuario:</strong> <span style={{ color: '#9ca3af' }}>admin</span>
                             </Form.Text>
                         </Form.Group>
 
@@ -51,8 +52,8 @@ export default function Login() {
                                 placeholder="Ingresa tu contraseña"
                                 required
                             />
-                            <Form.Text className="text-muted">
-                                Contraseña: 1234
+                            <Form.Text className="text-help">
+                                <strong style={{ color: '#8b5cf6' }}>Contraseña:</strong> <span style={{ color: '#9ca3af' }}>1234</span>
                             </Form.Text>
                         </Form.Group>
 

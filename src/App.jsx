@@ -6,10 +6,10 @@ import Footer from './components/footer';
 import Carrito from './components/carrito';
 import Inicio from './paginas/inicio';
 import DetalleProducto from './paginas/DetalleProducto';
-import Login from './paginas/login';
+import Login from './paginas/Login';
 import RutaProtegida from './components/rutaProtegida';
 import CarritoPage from './paginas/carritoPage';
-import NoEncontrado from './paginas/noEncontrado';
+import NoEncontrado from './paginas/NoEncontrado';
 
 function App() {
   const [carrito, setCarrito] = useState([]);
@@ -17,6 +17,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // useEffect para traer productos de la API
   useEffect(() => {
     const fetchProductos = async () => {
       try {
@@ -41,6 +42,7 @@ function App() {
     fetchProductos();
   }, []);
 
+  // Función para agregar productos al carrito
   const agregarAlCarrito = (producto) => {
     setCarrito(prevCarrito => {
       const productoExistente = prevCarrito.find(item => item.id === producto.id);
@@ -57,10 +59,12 @@ function App() {
     });
   };
 
+  // Función para eliminar productos del carrito
   const eliminarDelCarrito = (productoId) => {
     setCarrito(prevCarrito => prevCarrito.filter(item => item.id !== productoId));
   };
 
+  // Función para modificar cantidad
   const modificarCantidad = (productoId, nuevaCantidad) => {
     if (nuevaCantidad < 1) return;
 
@@ -73,6 +77,7 @@ function App() {
     );
   };
 
+  // Calcular cantidad total de items en el carrito
   const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
 
   return (
@@ -81,7 +86,7 @@ function App() {
 
       <main style={{ flex: 1 }}>
         <Routes>
-          {}
+          {/* Ruta de Login sin carrito ni sidebar */}
           <Route
             path="/login"
             element={
@@ -91,7 +96,7 @@ function App() {
             }
           />
 
-          {}
+          {/* Ruta de Carrito página completa sin sidebar */}
           <Route
             path="/carrito"
             element={
@@ -103,7 +108,7 @@ function App() {
             }
           />
 
-          {}
+          {/* Ruta de Inicio con sidebar de carrito */}
           <Route
             path="/"
             element={
@@ -129,7 +134,7 @@ function App() {
             }
           />
 
-          {}
+          {/* Ruta de Detalle de Producto con sidebar de carrito */}
           <Route
             path="/producto/:id"
             element={
@@ -156,7 +161,7 @@ function App() {
             }
           />
 
-          {}
+          {/* Ruta 404 */}
           <Route path="*" element={<NoEncontrado />} />
         </Routes>
       </main>
