@@ -1,16 +1,67 @@
-# React + Vite
+🛒 TechStore - eCommerce de Tecnología
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![TechStore Banner](https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=1200&h=300&fit=crop)
 
-Currently, two official plugins are available:
+Proyecto de eCommerce desarrollado con React + Vite, especializado en productos tecnológicos como laptops, periféricos y accesorios premium.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Demo
 
-## React Compiler
+- **Usuario de prueba:** `admin`
+- **Contraseña:** `1234`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📋 Descripción
 
-## Expanding the ESLint configuration
+TechStore es una aplicación web moderna de comercio electrónico que permite a los usuarios explorar productos tecnológicos, agregarlos a un carrito de compras, modificar cantidades y gestionar sus compras de manera intuitiva.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## ✨ Características
+
+- ✅ Catálogo de productos con imágenes y precios
+- ✅ Carrito de compras interactivo
+- ✅ Agregar/eliminar productos del carrito
+- ✅ Modificar cantidades de productos
+- ✅ Sistema de autenticación (Login/Logout)
+- ✅ Rutas dinámicas para detalles de productos
+- ✅ Integración con API REST (MockAPI)
+- ✅ Estados de carga y manejo de errores
+- ✅ Diseño responsive y moderno
+- ✅ Banner hero con imagen de fondo
+- ✅ Navegación con React Router
+- ✅ Navbar fijo al hacer scroll
+
+## 🛠️ Tecnologías Utilizadas
+
+### Frontend
+- **React 18.3** - Biblioteca de JavaScript para construir interfaces
+- **Vite** - Herramienta de desarrollo rápida
+- **React Router DOM 6** - Navegación y enrutamiento
+- **React Bootstrap 2.10** - Componentes UI
+- **Bootstrap 5.3** - Framework CSS
+
+### Backend/API
+- **MockAPI** - API REST simulada para gestión de productos
+
+  ## 💡 Funcionalidades Destacadas
+
+### 1. Gestión del Carrito
+- Agregar productos con cantidad automática
+- Incrementar/decrementar cantidades
+- Eliminar productos individualmente
+- Cálculo automático del total
+
+### 2. Integración con API
+- Fetch de productos desde MockAPI
+- Estados de carga con spinners
+- Manejo de errores con alertas
+- useEffect para efectos secundarios
+
+### 3. Sistema de Rutas
+- Navegación entre páginas sin recargar
+- Rutas dinámicas con parámetros
+- Página 404 personalizada
+- Navbar con enlaces activos
+
+### 4. Autenticación
+- Login con validación
+- Almacenamiento en localStorage
+- Botón de cerrar sesión
+- Protección de rutas (opcional)
