@@ -26,6 +26,9 @@ export default function Header() {
                 <Navbar.Collapse>
                     <Nav className="ms-auto">
                         <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+                        {isAuthenticated && user?.role === 'admin' && (
+                            <Nav.Link as={Link} to="/admin">Administración</Nav.Link>
+                        )}
                         <Nav.Link as={Link} to="/carrito">
                             Carrito <Badge bg="primary">{totalItems}</Badge>
                         </Nav.Link>

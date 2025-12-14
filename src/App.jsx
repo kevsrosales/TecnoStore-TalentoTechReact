@@ -10,12 +10,13 @@ import Login from './paginas/Login';
 import CarritoPage from './paginas/CarritoPage';
 import NoEncontrado from './paginas/NoEncontrado';
 import { useCarrito } from './context/CarritoContext';
+import Administracion from './paginas/Administracion';
 
 function App() {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   const { totalItems } = useCarrito();
 
   // useEffect para traer productos de la API
@@ -24,11 +25,11 @@ function App() {
       try {
         setLoading(true);
         const response = await fetch('https://68f048d60b966ad50032670e.mockapi.io/Productos');
-        
+
         if (!response.ok) {
           throw new Error('Error al cargar los productos');
         }
-        
+
         const data = await response.json();
         setProductos(data);
         setError(null);
@@ -46,31 +47,41 @@ function App() {
   return (
     <>
       <Header cartCount={totalItems} />
-      
+
       <main style={{ flex: 1 }}>
         <Routes>
-          {}
-          <Route 
-            path="/login" 
+          { }
+          <Route
+            path="/login"
             element={
               <Container>
                 <Login />
               </Container>
-            } 
+            }
           />
 
-          {}
-          <Route 
-            path="/carrito" 
-            element={<CarritoPage />} 
+          { }
+          <Route
+            path="/admin"
+            element={
+              <Container>
+                <Administracion />
+              </Container>
+            }
           />
-          
-          {}
-          <Route 
-            path="/" 
+
+          { }
+          <Route
+            path="/carrito"
+            element={<CarritoPage />}
+          />
+
+          { }
+          <Route
+            path="/"
             element={
               <>
-                <Inicio 
+                <Inicio
                   productos={productos}
                   loading={loading}
                   error={error}
@@ -83,12 +94,12 @@ function App() {
                   </Row>
                 </Container>
               </>
-            } 
+            }
           />
 
-          {}
-          <Route 
-            path="/producto/:id" 
+          { }
+          <Route
+            path="/producto/:id"
             element={
               <Container>
                 <Row>
@@ -102,10 +113,10 @@ function App() {
                   </Col>
                 </Row>
               </Container>
-            } 
+            }
           />
 
-          {}
+          { }
           <Route path="*" element={<NoEncontrado />} />
         </Routes>
       </main>
