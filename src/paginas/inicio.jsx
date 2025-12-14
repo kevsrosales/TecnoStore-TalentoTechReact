@@ -1,8 +1,11 @@
 import { Container, Row, Col, Spinner, Alert } from 'react-bootstrap';
 import ProductoCard from '../components/ProductoCard';
 import Banner from '../components/Banner';
+import { useProductos } from '../context/ProductosContext';
 
-export default function Inicio({ productos, loading, error }) {
+export default function Inicio() {
+    const { productos, loading, error } = useProductos();
+
     if (loading) {
         return (
             <div className="text-center my-5">

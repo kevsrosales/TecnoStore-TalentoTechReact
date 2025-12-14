@@ -6,14 +6,17 @@ import './index.css'
 import App from './App.jsx'
 import { CarritoProvider } from './context/CarritoContext'
 import { AuthProvider } from './context/AuthContext'
+import { ProductosProvider } from './context/ProductosContext'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <CarritoProvider>
-          <App />
-        </CarritoProvider>
+        <ProductosProvider>
+          <CarritoProvider>
+            <App />
+          </CarritoProvider>
+        </ProductosProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,

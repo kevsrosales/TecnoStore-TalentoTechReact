@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 import Header from './components/Header';
@@ -8,41 +7,12 @@ import Inicio from './paginas/Inicio';
 import DetalleProducto from './paginas/DetalleProducto';
 import Login from './paginas/Login';
 import CarritoPage from './paginas/CarritoPage';
+import Administracion from './paginas/Administracion';
 import NoEncontrado from './paginas/NoEncontrado';
 import { useCarrito } from './context/CarritoContext';
-import Administracion from './paginas/Administracion';
 
 function App() {
-  const [productos, setProductos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
   const { totalItems } = useCarrito();
-
-  // useEffect para traer productos de la API
-  useEffect(() => {
-    const fetchProductos = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('https://68f048d60b966ad50032670e.mockapi.io/Productos');
-
-        if (!response.ok) {
-          throw new Error('Error al cargar los productos');
-        }
-
-        const data = await response.json();
-        setProductos(data);
-        setError(null);
-      } catch (err) {
-        setError(err.message);
-        console.error('Error:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProductos();
-  }, []);
 
   return (
     <>
@@ -50,7 +20,7 @@ function App() {
 
       <main style={{ flex: 1 }}>
         <Routes>
-          { }
+          {/* Ruta de Login sin carrito ni sidebar */}
           <Route
             path="/login"
             element={
@@ -60,7 +30,7 @@ function App() {
             }
           />
 
-          { }
+          {/* Ruta de Administración */}
           <Route
             path="/admin"
             element={
@@ -70,22 +40,18 @@ function App() {
             }
           />
 
-          { }
+          {/* Ruta de Carrito página completa sin sidebar */}
           <Route
             path="/carrito"
             element={<CarritoPage />}
           />
 
-          { }
+          {/* Ruta de Inicio con sidebar de carrito */}
           <Route
             path="/"
             element={
               <>
-                <Inicio
-                  productos={productos}
-                  loading={loading}
-                  error={error}
-                />
+                <Inicio />
                 <Container className="my-5">
                   <Row className="justify-content-center">
                     <Col lg={8}>
@@ -97,7 +63,7 @@ function App() {
             }
           />
 
-          { }
+          {/* Ruta de Detalle de Producto con sidebar de carrito */}
           <Route
             path="/producto/:id"
             element={
@@ -116,7 +82,7 @@ function App() {
             }
           />
 
-          { }
+          {/* Ruta 404 */}
           <Route path="*" element={<NoEncontrado />} />
         </Routes>
       </main>

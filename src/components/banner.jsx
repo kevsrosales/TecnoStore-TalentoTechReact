@@ -1,4 +1,5 @@
 import { Container, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default function Banner() {
     return (
@@ -21,9 +22,16 @@ export default function Banner() {
                         Ver Productos Destacados
                     </Button>
                     <Button
+                        as={Link}
+                        to="/"
                         variant="outline-light"
                         size="lg"
                         className="btn-outline-purple"
+                        onClick={() => {
+                            setTimeout(() => {
+                                document.getElementById('productos')?.scrollIntoView({ behavior: 'smooth' });
+                            }, 100);
+                        }}
                     >
                         Explorar Catálogo
                     </Button>

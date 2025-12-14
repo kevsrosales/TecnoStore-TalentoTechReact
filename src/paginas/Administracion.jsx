@@ -1,10 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Container, Row, Col, Button, Table, Modal, Form, Alert, Spinner } from 'react-bootstrap';
+import { useProductos } from '../context/ProductosContext';
 
 export default function Administracion() {
-    const [productos, setProductos] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { productos, loading, error, crearProducto, actualizarProducto, eliminarProducto } = useProductos();
 
     const [showModal, setShowModal] = useState(false);
     const [modoEdicion, setModoEdicion] = useState(false);
@@ -21,25 +20,6 @@ export default function Administracion() {
     });
 
     const [erroresForm, setErroresForm] = useState({});
-
-    const fetchProductos = async () => {
-        try {
-            setLoading(true);
-            const response = await fetch('https://68f048d60b966ad50032670e.mockapi.io/Productos');
-            if (!response.ok) throw new Error('Error al cargar productos');
-            const data = await response.json();
-            setProductos(data);
-            setError(null);
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchProductos();
-    }, []);
 
     const validarFormulario = () => {
         const errores = {};
@@ -89,43 +69,29 @@ export default function Administracion() {
         setShowModal(true);
     };
 
-    const crearProducto = async () => {
+    const handleCrearProducto = async () => {
         if (!validarFormulario()) return;
 
-        try {
-            const response = await fetch('https://68f048d60b966ad50032670e.mockapi.io/Productos', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
+        const result = await crearProducto(formData);
 
-            if (!response.ok) throw new Error('Error al crear producto');
-
-            await fetchProductos();
+        if (result.success) {
             setShowModal(false);
             alert('Producto creado exitosamente');
-        } catch (err) {
-            alert('Error al crear producto: ' + err.message);
+        } else {
+            alert('Error al crear producto: ' + result.error);
         }
     };
 
-    const actualizarProducto = async () => {
+    const handleActualizarProducto = async () => {
         if (!validarFormulario()) return;
 
-        try {
-            const response = await fetch(`https://68f048d60b966ad50032670e.mockapi.io/Productos/${productoActual.id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
-            });
+        const result = await actualizarProducto(productoActual.id, formData);
 
-            if (!response.ok) throw new Error('Error al actualizar producto');
-
-            await fetchProductos();
+        if (result.success) {
             setShowModal(false);
             alert('Producto actualizado exitosamente');
-        } catch (err) {
-            alert('Error al actualizar producto: ' + err.message);
+        } else {
+            alert('Error al actualizar producto: ' + result.error);
         }
     };
 
@@ -134,19 +100,14 @@ export default function Administracion() {
         setShowDeleteModal(true);
     };
 
-    const eliminarProducto = async () => {
-        try {
-            const response = await fetch(`https://68f048d60b966ad50032670e.mockapi.io/Productos/${productoAEliminar.id}`, {
-                method: 'DELETE'
-            });
+    const handleEliminarProducto = async () => {
+        const result = await eliminarProducto(productoAEliminar.id);
 
-            if (!response.ok) throw new Error('Error al eliminar producto');
-
-            await fetchProductos();
+        if (result.success) {
             setShowDeleteModal(false);
             alert('Producto eliminado exitosamente');
-        } catch (err) {
-            alert('Error al eliminar producto: ' + err.message);
+        } else {
+            alert('Error al eliminar producto: ' + result.error);
         }
     };
 
@@ -307,7 +268,7 @@ export default function Administracion() {
                     </Button>
                     <Button
                         variant="primary"
-                        onClick={modoEdicion ? actualizarProducto : crearProducto}
+                        onClick={modoEdicion ? handleActualizarProducto : handleCrearProducto}
                     >
                         {modoEdicion ? 'Actualizar' : 'Crear'}
                     </Button>
@@ -327,7 +288,7 @@ export default function Administracion() {
                     <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
                         Cancelar
                     </Button>
-                    <Button variant="danger" onClick={eliminarProducto}>
+                    <Button variant="danger" onClick={handleEliminarProducto}>
                         Eliminar
                     </Button>
                 </Modal.Footer>
