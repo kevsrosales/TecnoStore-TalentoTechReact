@@ -1,12 +1,15 @@
 import { Navbar, Container, Nav, Badge, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useCarrito } from '../context/CarritoContext';
 
-export default function Header({ cartCount }) {
+export default function Header() {
     const navigate = useNavigate();
-    const isAuth = localStorage.getItem('auth') === 'true';
+    const { isAuthenticated, logout, user } = useAuth();
+    const { totalItems } = useCarrito();
 
     const handleLogout = () => {
-        localStorage.removeItem('auth');
+        logout();
         navigate('/login');
     };
 
@@ -24,18 +27,23 @@ export default function Header({ cartCount }) {
                     <Nav className="ms-auto">
                         <Nav.Link as={Link} to="/">Inicio</Nav.Link>
                         <Nav.Link as={Link} to="/carrito">
-                            Carrito <Badge bg="primary">{cartCount}</Badge>
+                            Carrito <Badge bg="primary">{totalItems}</Badge>
                         </Nav.Link>
 
-                        {isAuth ? (
-                            <Button
-                                variant="outline-light"
-                                size="sm"
-                                onClick={handleLogout}
-                                className="ms-2"
-                            >
-                                Cerrar Sesión
-                            </Button>
+                        {isAuthenticated ? (
+                            <>
+                                <Nav.Link disabled className="text-light">
+                                    Hola, {user?.username}
+                                </Nav.Link>
+                                <Button
+                                    variant="outline-light"
+                                    size="sm"
+                                    onClick={handleLogout}
+                                    className="ms-2"
+                                >
+                                    Cerrar Sesión
+                                </Button>
+                            </>
                         ) : (
                             <Nav.Link as={Link} to="/login">Iniciar Sesión</Nav.Link>
                         )}
