@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Card, Button, Spinner, Alert } from 'react-bootstrap';
+import { useCarrito } from '../context/CarritoContext';
 
-export default function DetalleProducto({ onAgregarAlCarrito }) {
+export default function DetalleProducto() {
     const { id } = useParams();
+    const { agregarAlCarrito } = useCarrito();
     const [producto, setProducto] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -78,7 +80,7 @@ export default function DetalleProducto({ onAgregarAlCarrito }) {
                                 variant="primary"
                                 size="lg"
                                 className="w-100 mt-3"
-                                onClick={() => onAgregarAlCarrito(producto)}
+                                onClick={() => agregarAlCarrito(producto)}
                             >
                                 Agregar al Carrito
                             </Button>

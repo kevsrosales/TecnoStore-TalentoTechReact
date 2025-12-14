@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
+import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
     const navigate = useNavigate();
+    const { login } = useAuth();
     const [usuario, setUsuario] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -11,12 +13,12 @@ export default function Login() {
     const handleLogin = (e) => {
         e.preventDefault();
 
-        // Validación simple (puedes mejorarla)
-        if (usuario === 'admin' && password === '1234') {
-            localStorage.setItem('auth', 'true');
+        const result = login(usuario, password);
+
+        if (result.success) {
             navigate('/');
         } else {
-            setError('Usuario o contraseña incorrectos');
+            setError(result.error);
         }
     };
 

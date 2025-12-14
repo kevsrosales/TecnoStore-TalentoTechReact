@@ -1,7 +1,10 @@
 import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useCarrito } from '../context/CarritoContext';
 
-export default function ProductoCard({ producto, onAgregar }) {
+export default function ProductoCard({ producto }) {
+    const { agregarAlCarrito } = useCarrito();
+
     return (
         <Card className="h-100">
             <Link to={`/producto/${producto.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -24,7 +27,7 @@ export default function ProductoCard({ producto, onAgregar }) {
                 <Button
                     variant="primary"
                     className="mt-auto"
-                    onClick={() => onAgregar(producto)}
+                    onClick={() => agregarAlCarrito(producto)}
                 >
                     Agregar al Carrito
                 </Button>

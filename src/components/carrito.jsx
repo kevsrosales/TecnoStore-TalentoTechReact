@@ -1,7 +1,8 @@
 import { Card, ListGroup, Button, Badge } from 'react-bootstrap';
+import { useCarrito } from '../context/CarritoContext';
 
-export default function Carrito({ items, onEliminar, onModificarCantidad }) {
-    const total = items.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
+export default function Carrito() {
+    const { carrito, eliminarDelCarrito, modificarCantidad, vaciarCarrito, totalPrecio } = useCarrito();
 
     return (
         <Card>
@@ -9,12 +10,12 @@ export default function Carrito({ items, onEliminar, onModificarCantidad }) {
                 <h3>Carrito de Compras</h3>
             </Card.Header>
             <Card.Body>
-                {items.length === 0 ? (
+                {carrito.length === 0 ? (
                     <p className="text-muted text-center">El carrito está vacío</p>
                 ) : (
                     <>
                         <ListGroup variant="flush">
-                            {items.map(item => (
+                            {carrito.map(item => (
                                 <ListGroup.Item key={item.id}>
                                     <div className="d-flex align-items-center mb-2">
                                         <img
@@ -34,7 +35,7 @@ export default function Carrito({ items, onEliminar, onModificarCantidad }) {
                                             <Button
                                                 variant="outline-secondary"
                                                 size="sm"
-                                                onClick={() => onModificarCantidad(item.id, item.cantidad - 1)}
+                                                onClick={() => modificarCantidad(item.id, item.cantidad - 1)}
                                                 disabled={item.cantidad <= 1}
                                             >
                                                 -
@@ -45,7 +46,7 @@ export default function Carrito({ items, onEliminar, onModificarCantidad }) {
                                             <Button
                                                 variant="outline-secondary"
                                                 size="sm"
-                                                onClick={() => onModificarCantidad(item.id, item.cantidad + 1)}
+                                                onClick={() => modificarCantidad(item.id, item.cantidad + 1)}
                                             >
                                                 +
                                             </Button>
@@ -58,7 +59,7 @@ export default function Carrito({ items, onEliminar, onModificarCantidad }) {
                                             <Button
                                                 variant="danger"
                                                 size="sm"
-                                                onClick={() => onEliminar(item.id)}
+                                                onClick={() => eliminarDelCarrito(item.id)}
                                             >
                                                 🗑️
                                             </Button>
@@ -71,10 +72,17 @@ export default function Carrito({ items, onEliminar, onModificarCantidad }) {
                         <div className="mt-3 pt-3 border-top">
                             <div className="d-flex justify-content-between mb-3">
                                 <h5>Total:</h5>
-                                <h5 className="text-success">${total.toFixed(2)}</h5>
+                                <h5 className="text-success">${totalPrecio.toFixed(2)}</h5>
                             </div>
-                            <Button variant="success" className="w-100">
+                            <Button variant="success" className="w-100 mb-2">
                                 Finalizar Compra
+                            </Button>
+                            <Button
+                                variant="outline-danger"
+                                className="w-100"
+                                onClick={vaciarCarrito}
+                            >
+                                Vaciar Carrito
                             </Button>
                         </div>
                     </>
