@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Container, Row, Col, Button, Table, Modal, Form, Alert, Spinner } from 'react-bootstrap';
+import { FiPlus, FiEdit2, FiTrash2, FiSave, FiX } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 import { useProductos } from '../context/ProductosContext';
 
 export default function Administracion() {
@@ -76,9 +78,6 @@ export default function Administracion() {
 
         if (result.success) {
             setShowModal(false);
-            alert('Producto creado exitosamente');
-        } else {
-            alert('Error al crear producto: ' + result.error);
         }
     };
 
@@ -89,9 +88,6 @@ export default function Administracion() {
 
         if (result.success) {
             setShowModal(false);
-            alert('Producto actualizado exitosamente');
-        } else {
-            alert('Error al actualizar producto: ' + result.error);
         }
     };
 
@@ -105,9 +101,6 @@ export default function Administracion() {
 
         if (result.success) {
             setShowDeleteModal(false);
-            alert('Producto eliminado exitosamente');
-        } else {
-            alert('Error al eliminar producto: ' + result.error);
         }
     };
 
@@ -136,7 +129,8 @@ export default function Administracion() {
                 </Col>
                 <Col className="text-end">
                     <Button variant="primary" onClick={handleNuevoProducto}>
-                        + Nuevo Producto
+                        <FiPlus className="me-2" />
+                        Nuevo Producto
                     </Button>
                 </Col>
             </Row>
@@ -167,7 +161,7 @@ export default function Administracion() {
                                 <img
                                     src={producto.imagen}
                                     alt={producto.nombre}
-                                    style={{ width: '50px', height: '50px', objectFit: 'cover' }}
+                                    style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px' }}
                                 />
                             </td>
                             <td>{producto.nombre}</td>
@@ -180,6 +174,7 @@ export default function Administracion() {
                                     className="me-2"
                                     onClick={() => handleEditarProducto(producto)}
                                 >
+                                    <FiEdit2 className="me-1" />
                                     Editar
                                 </Button>
                                 <Button
@@ -187,6 +182,7 @@ export default function Administracion() {
                                     size="sm"
                                     onClick={() => handleEliminarClick(producto)}
                                 >
+                                    <FiTrash2 className="me-1" />
                                     Eliminar
                                 </Button>
                             </td>
@@ -195,11 +191,21 @@ export default function Administracion() {
                 </tbody>
             </Table>
 
-            {}
+            {/* Modal para Crear/Editar */}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>
-                        {modoEdicion ? 'Editar Producto' : 'Nuevo Producto'}
+                        {modoEdicion ? (
+                            <>
+                                <FiEdit2 className="me-2" />
+                                Editar Producto
+                            </>
+                        ) : (
+                            <>
+                                <FiPlus className="me-2" />
+                                Nuevo Producto
+                            </>
+                        )}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -264,31 +270,39 @@ export default function Administracion() {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        <FiX className="me-2" />
                         Cancelar
                     </Button>
                     <Button
                         variant="primary"
                         onClick={modoEdicion ? handleActualizarProducto : handleCrearProducto}
                     >
+                        <FiSave className="me-2" />
                         {modoEdicion ? 'Actualizar' : 'Crear'}
                     </Button>
                 </Modal.Footer>
             </Modal>
 
-            {}
+            {/* Modal de Confirmación para Eliminar */}
             <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Confirmar Eliminación</Modal.Title>
+                    <Modal.Title>
+                        <FiTrash2 className="me-2" />
+                        Confirmar Eliminación
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    ¿Estás seguro de que deseas eliminar el producto "{productoAEliminar?.nombre}"?
-                    Esta acción no se puede deshacer.
+                    ¿Estás seguro de que deseas eliminar el producto <strong>"{productoAEliminar?.nombre}"</strong>?
+                    <br />
+                    <small className="text-muted">Esta acción no se puede deshacer.</small>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+                        <FiX className="me-2" />
                         Cancelar
                     </Button>
                     <Button variant="danger" onClick={handleEliminarProducto}>
+                        <FiTrash2 className="me-2" />
                         Eliminar
                     </Button>
                 </Modal.Footer>

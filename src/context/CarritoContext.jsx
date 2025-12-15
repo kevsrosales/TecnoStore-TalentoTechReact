@@ -1,4 +1,5 @@
 import { createContext, useState, useContext } from 'react';
+import { toast } from 'react-toastify';
 
 const CarritoContext = createContext();
 
@@ -18,19 +19,23 @@ export const CarritoProvider = ({ children }) => {
             const productoExistente = prevCarrito.find(item => item.id === producto.id);
 
             if (productoExistente) {
+                toast.info(`➕ Cantidad de ${producto.nombre} actualizada`);
                 return prevCarrito.map(item =>
                     item.id === producto.id
                         ? { ...item, cantidad: item.cantidad + 1 }
                         : item
                 );
             } else {
+                toast.success(`🛒 ${producto.nombre} agregado al carrito`);
                 return [...prevCarrito, { ...producto, cantidad: 1 }];
             }
         });
     };
 
     const eliminarDelCarrito = (productoId) => {
+        const producto = carrito.find(item => item.id === productoId);
         setCarrito(prevCarrito => prevCarrito.filter(item => item.id !== productoId));
+        toast.warning(`🗑️ ${producto?.nombre} eliminado del carrito`);
     };
 
     const modificarCantidad = (productoId, nuevaCantidad) => {
@@ -46,11 +51,13 @@ export const CarritoProvider = ({ children }) => {
     };
 
     const vaciarCarrito = () => {
-        setCarrito([]);
+        if (carrito.length > 0) {
+            setCarrito([]);
+            toast.info('🧹 Carrito vaciado');
+        }
     };
 
     const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-
     const totalPrecio = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
 
     const value = {

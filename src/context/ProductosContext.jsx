@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const ProductosContext = createContext();
 
@@ -31,6 +32,7 @@ export const ProductosProvider = ({ children }) => {
             setError(null);
         } catch (err) {
             setError(err.message);
+            toast.error('Error al cargar productos');
             console.error('Error:', err);
         } finally {
             setLoading(false);
@@ -48,8 +50,10 @@ export const ProductosProvider = ({ children }) => {
             if (!response.ok) throw new Error('Error al crear producto');
 
             await fetchProductos();
+            toast.success('✅ Producto creado exitosamente');
             return { success: true };
         } catch (err) {
+            toast.error('❌ Error al crear producto');
             return { success: false, error: err.message };
         }
     };
@@ -65,8 +69,10 @@ export const ProductosProvider = ({ children }) => {
             if (!response.ok) throw new Error('Error al actualizar producto');
 
             await fetchProductos();
+            toast.success('✅ Producto actualizado exitosamente');
             return { success: true };
         } catch (err) {
+            toast.error('❌ Error al actualizar producto');
             return { success: false, error: err.message };
         }
     };
@@ -80,8 +86,10 @@ export const ProductosProvider = ({ children }) => {
             if (!response.ok) throw new Error('Error al eliminar producto');
 
             await fetchProductos();
+            toast.success('✅ Producto eliminado exitosamente');
             return { success: true };
         } catch (err) {
+            toast.error('❌ Error al eliminar producto');
             return { success: false, error: err.message };
         }
     };

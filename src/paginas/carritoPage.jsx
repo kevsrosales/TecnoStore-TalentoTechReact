@@ -1,5 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import Carrito from '../components/carrito';
+import Carrito from '../components/Carrito';
 
 export default function CarritoPage() {
     return (
