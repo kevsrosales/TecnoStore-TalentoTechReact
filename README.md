@@ -9,22 +9,35 @@ Proyecto de eCommerce desarrollado con React + Vite, especializado en productos 
 
 ## 📋 Descripción
 
-TechStore es una aplicación web moderna de comercio electrónico que permite a los usuarios explorar productos tecnológicos, agregarlos a un carrito de compras, modificar cantidades y gestionar sus compras de manera intuitiva.
+TechStore es una aplicación web completa de comercio electrónico desarrollada con las últimas tecnologías de React. Permite a los usuarios explorar productos, gestionar un carrito de compras, y a los administradores realizar operaciones CRUD sobre el catálogo.
 
-## ✨ Características
+## ✨ Características Principales
 
-- ✅ Catálogo de productos con imágenes y precios
+### 🛍️ Para Usuarios
+- ✅ Catálogo de productos con imágenes y detalles
+- ✅ Búsqueda en tiempo real por nombre o categoría
+- ✅ Sistema de paginación (8 productos por página)
 - ✅ Carrito de compras interactivo
 - ✅ Agregar/eliminar productos del carrito
 - ✅ Modificar cantidades de productos
-- ✅ Sistema de autenticación (Login/Logout)
-- ✅ Rutas dinámicas para detalles de productos
-- ✅ Integración con API REST (MockAPI)
-- ✅ Estados de carga y manejo de errores
+- ✅ Cálculo automático de totales
+- ✅ Vista detallada de cada producto
+- ✅ Notificaciones toast elegantes
 - ✅ Diseño responsive y moderno
-- ✅ Banner hero con imagen de fondo
-- ✅ Navegación con React Router
-- ✅ Navbar fijo al hacer scroll
+
+### 🔐 Autenticación
+- ✅ Sistema de login/logout
+- ✅ Persistencia de sesión con localStorage
+- ✅ Protección de rutas administrativas
+- ✅ Información de usuario en el header
+
+### 👨‍💼 Panel de Administración
+- ✅ CRUD completo de productos
+- ✅ Crear nuevos productos
+- ✅ Editar productos existentes
+- ✅ Eliminar productos con confirmación
+- ✅ Validación de formularios
+- ✅ Vista en tabla con imágenes
 
 ## 🛠️ Tecnologías Utilizadas
 
@@ -38,28 +51,31 @@ TechStore es una aplicación web moderna de comercio electrónico que permite a 
 ### Backend/API
 - **MockAPI** - API REST simulada para gestión de productos
 
-  ## 💡 Funcionalidades Destacadas
+## 💡 Funcionalidades Destacadas
 
-### 1. Gestión del Carrito
-- Agregar productos con cantidad automática
-- Incrementar/decrementar cantidades
-- Eliminar productos individualmente
-- Cálculo automático del total
+### 1. Context API
+- **CarritoContext**: Gestión global del carrito
+- **AuthContext**: Estado de autenticación
+- **ProductosContext**: CRUD de productos y sincronización con API
 
-### 2. Integración con API
-- Fetch de productos desde MockAPI
-- Estados de carga con spinners
-- Manejo de errores con alertas
-- useEffect para efectos secundarios
+### 2. Búsqueda y Filtrado
+- Búsqueda en tiempo real
+- Filtrado por nombre y categoría
+- Reset automático de paginación al buscar
 
-### 3. Sistema de Rutas
-- Navegación entre páginas sin recargar
-- Rutas dinámicas con parámetros
-- Página 404 personalizada
-- Navbar con enlaces activos
+### 3. Paginación Inteligente
+- 8 productos por página
+- Navegación con botones First, Prev, Next, Last
+- Ellipsis (...) para muchas páginas
+- Resaltado de página activa
 
-### 4. Autenticación
-- Login con validación
-- Almacenamiento en localStorage
-- Botón de cerrar sesión
-- Protección de rutas (opcional)
+### 4. Notificaciones Toast
+- Success: Producto agregado, creado, actualizado
+- Error: Fallos en operaciones
+- Warning: Producto eliminado
+- Info: Cantidad actualizada
+
+### 5. SEO Optimizado
+- Meta tags dinámicos por página
+- Títulos descriptivos
+- Meta descriptions personalizadas
