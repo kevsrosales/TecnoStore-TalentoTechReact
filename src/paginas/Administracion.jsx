@@ -3,6 +3,7 @@ import { Container, Row, Col, Button, Table, Modal, Form, Alert, Spinner } from 
 import { FiPlus, FiEdit2, FiTrash2, FiSave, FiX } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 import { useProductos } from '../context/ProductosContext';
+import { Helmet } from 'react-helmet-async';
 
 export default function Administracion() {
     const { productos, loading, error, crearProducto, actualizarProducto, eliminarProducto } = useProductos();
@@ -123,6 +124,11 @@ export default function Administracion() {
 
     return (
         <Container className="my-5">
+            <Helmet>
+                <title>Administración - TechStore</title>
+                <meta name="description" content="Panel de administración de productos" />
+            </Helmet>
+
             <Row className="mb-4">
                 <Col>
                     <h2>Administración de Productos</h2>
@@ -308,5 +314,7 @@ export default function Administracion() {
                 </Modal.Footer>
             </Modal>
         </Container>
+
+
     );
 }
