@@ -4,7 +4,7 @@ import Header from './components/header';
 import Footer from './components/footer';
 import Carrito from './components/carrito';
 import Inicio from './paginas/inicio';
-import DetalleProducto from './paginas/DetalleProducto';
+import DetalleProducto from './paginas/detalleProducto';
 import Login from './paginas/login';
 import CarritoPage from './paginas/carritoPage';
 import Administracion from './paginas/Administracion';
