@@ -1,6 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap';
 import { Helmet } from 'react-helmet-async';
-import Carrito from '../components/Carrito';
+import Carrito from '../components/carrito';
 
 export default function CarritoPage() {
     return (

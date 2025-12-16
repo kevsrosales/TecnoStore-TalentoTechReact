@@ -1,14 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Carrito from './components/Carrito';
-import Inicio from './paginas/Inicio';
+import Header from './components/header';
+import Footer from './components/footer';
+import Carrito from './components/carrito';
+import Inicio from './paginas/inicio';
 import DetalleProducto from './paginas/DetalleProducto';
-import Login from './paginas/Login';
-import CarritoPage from './paginas/CarritoPage';
+import Login from './paginas/login';
+import CarritoPage from './paginas/carritoPage';
 import Administracion from './paginas/Administracion';
-import NoEncontrado from './paginas/NoEncontrado';
+import NoEncontrado from './paginas/noEncontrado';
 import { useCarrito } from './context/CarritoContext';
 
 function App() {
