@@ -1,17 +1,49 @@
 import { Card, ListGroup, Button, Badge } from 'react-bootstrap';
+import { FiTrash2, FiShoppingCart, FiCheck } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 import { useCarrito } from '../context/CarritoContext';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Carrito() {
     const { carrito, eliminarDelCarrito, modificarCantidad, vaciarCarrito, totalPrecio } = useCarrito();
+    const { isAuthenticated } = useAuth();
+    const navigate = useNavigate();
+
+    const handleFinalizarCompra = () => {
+        if (!isAuthenticated) {
+            toast.warning('⚠️ Debes iniciar sesión para finalizar la compra');
+            navigate('/login');
+            return;
+        }
+
+        if (carrito.length === 0) {
+            toast.error('❌ El carrito está vacío');
+            return;
+        }
+
+        // Simular finalización de compra
+        toast.success('🎉 ¡Compra realizada con éxito! Gracias por tu compra.');
+        vaciarCarrito();
+    };
 
     return (
         <Card>
-            <Card.Header>
-                <h3>Carrito de Compras</h3>
+            <Card.Header className="d-flex align-items-center justify-content-between">
+                <h3 className="mb-0">
+                    <FiShoppingCart className="me-2" />
+                    Carrito de Compras
+                </h3>
+                {carrito.length > 0 && (
+                    <Badge bg="primary">{carrito.length}</Badge>
+                )}
             </Card.Header>
             <Card.Body>
                 {carrito.length === 0 ? (
-                    <p className="text-muted text-center">El carrito está vacío</p>
+                    <div className="text-center py-4">
+                        <FiShoppingCart size={48} className="text-muted mb-3" />
+                        <p className="text-muted">El carrito está vacío</p>
+                    </div>
                 ) : (
                     <>
                         <ListGroup variant="flush">
@@ -60,8 +92,9 @@ export default function Carrito() {
                                                 variant="danger"
                                                 size="sm"
                                                 onClick={() => eliminarDelCarrito(item.id)}
+                                                title="Eliminar"
                                             >
-                                                🗑️
+                                                <FiTrash2 />
                                             </Button>
                                         </div>
                                     </div>
@@ -74,7 +107,12 @@ export default function Carrito() {
                                 <h5>Total:</h5>
                                 <h5 className="text-success">${totalPrecio.toFixed(2)}</h5>
                             </div>
-                            <Button variant="success" className="w-100 mb-2">
+                            <Button
+                                variant="success"
+                                className="w-100 mb-2"
+                                onClick={handleFinalizarCompra}
+                            >
+                                <FiCheck className="me-2" />
                                 Finalizar Compra
                             </Button>
                             <Button
@@ -82,6 +120,7 @@ export default function Carrito() {
                                 className="w-100"
                                 onClick={vaciarCarrito}
                             >
+                                <FiTrash2 className="me-2" />
                                 Vaciar Carrito
                             </Button>
                         </div>
